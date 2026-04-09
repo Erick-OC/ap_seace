@@ -15,6 +15,18 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 OECE_RECORDS_URL = os.getenv("OECE_RECORDS_URL")
 MAX_PAGES = 5
 
+HEADERS = {
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+}
+
 def validar_config() -> None:
     faltantes = []
 
@@ -115,7 +127,7 @@ def main() -> None:
         paginas += 1
         print(f"[Página {paginas}] Fetching: {url}")
 
-        res = requests.get(url, timeout=30)
+        res = requests.get(url, headers=HEADERS, timeout=30)
 
         if res.status_code == 404:
             print(f"Fin de paginación en: {url}")
